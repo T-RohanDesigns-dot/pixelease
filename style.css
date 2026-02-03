@@ -38,11 +38,19 @@ button:hover {
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  margin-top: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
+.tool-card {
+  padding: 12px;
+  min-height: auto;
+}
+
+.tool-card h3 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
 .tool-card {
   background: #ffffff;
   padding: 20px;
@@ -69,4 +77,31 @@ button:hover {
 input[type="range"] {
   width: 100%;
   margin-top: 10px;
+}
+.editor-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  margin-top: 30px;
+  align-items: start;
+}
+
+.canvas-wrap {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.tools-panel {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
