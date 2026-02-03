@@ -19,9 +19,34 @@
   <script src="script.js"></script>
 </body>
 </html>
-<div class="controls">
-  <button onclick="increaseBrightness()">Brightness +</button>
-  <button onclick="decreaseBrightness()">Brightness −</button>
-  <button onclick="sharpenImage()">Sharpen</button>
-  <button onclick="downloadImage()">Download</button>
+<div class="tools-grid">
+  <div class="tool-card">
+    <h3>Brightness +</h3>
+    <button onclick="increaseBrightness()">Apply</button>
+  </div>
+
+  <div class="tool-card">
+    <h3>Brightness −</h3>
+    <button onclick="decreaseBrightness()">Apply</button>
+  </div>
+
+  <div class="tool-card">
+    <h3>Sharpen</h3>
+    <button onclick="sharpenImage()">Apply</button>
+  </div>
+
+  <div class="tool-card">
+    <h3>Crop</h3>
+    <button onclick="cropCenter()">Apply</button>
+  </div>
+
+  <div class="tool-card">
+    <h3>Resize (50%)</h3>
+    <button onclick="resizeImage()">Apply</button>
+  </div>
+
+  <div class="tool-card">
+    <h3>Download</h3>
+    <button onclick="downloadImage()">Download</button>
+  </div>
 </div>
