@@ -111,3 +111,29 @@ function resizeImage() {
   canvas.height = tempCanvas.height;
   ctx.drawImage(tempCanvas, 0, 0);
 }
+function adjustBrightness(value) {
+  saveState();
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const d = imgData.data;
+
+  for (let i = 0; i < d.length; i += 4) {
+    d[i] += Number(value);
+    d[i + 1] += Number(value);
+    d[i + 2] += Number(value);
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function adjustContrast(value) {
+  saveState();
+  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const d = imgData.data;
+  const factor = (259 * (Number(value) + 255)) / (255 * (259 - Number(value)));
+
+  for (let i = 0; i < d.length; i += 4) {
+    d[i] = factor * (d[i] - 128) + 128;
+    d[i + 1] = factor * (d[i + 1] - 128) + 128;
+    d[i + 2] = factor * (d[i + 2] - 128) + 128;
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
