@@ -11,70 +11,61 @@
   <p>Upload an image to start editing</p>
 
   <input type="file" id="upload" accept="image/*" />
-<div class="editor-layout">
 
-  <!-- LEFT SIDE : IMAGE -->
-  <div class="canvas-wrap">
-    <canvas id="canvas"></canvas>
-  </div>
+  <!-- MAIN EDITOR -->
+  <div class="editor-layout">
 
-  <div class="tools-panel">
-    
-    <div class="tools-grid">
-      <<div class="tool-card">...</div>
->
+    <!-- IMAGE AREA -->
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <!-- TOOLS AREA -->
+    <div class="tools-panel">
+      <div class="tools-grid">
+
+        <div class="tool-card">
+          <h3>Brightness</h3>
+          <input type="range" min="-40" max="40" value="0"
+            oninput="adjustBrightness(this.value)" />
+        </div>
+
+        <div class="tool-card">
+          <h3>Contrast</h3>
+          <input type="range" min="-40" max="40" value="0"
+            oninput="adjustContrast(this.value)" />
+        </div>
+
+        <div class="tool-card">
+          <h3>Sharpen</h3>
+          <button onclick="sharpenImage()">Apply</button>
+        </div>
+
+        <div class="tool-card">
+          <h3>Undo</h3>
+          <button onclick="undoImage()">Undo</button>
+        </div>
+
+        <div class="tool-card">
+          <h3>Reset</h3>
+          <button onclick="resetImage()">Reset</button>
+        </div>
+
+        <div class="tool-card">
+          <h3>Download</h3>
+          <button onclick="downloadImage()">Download</button>
+        </div>
+
+      </div>
     </div>
 
   </div>
 
-</div>
+  <footer class="footer">
+    © 2026 ROHAN.T PVT LTD. All rights reserved.<br>
+    Design & Developed by <b>Rohan Gupta</b>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-<div class="tool-card">
-  <h3>Brightness</h3>
-  <input type="range" min="-50" max="50" value="0"
-         oninput="adjustBrightness(this.value)" />
-</div>
-
-<div class="tool-card">
-  <h3>Contrast</h3>
-  <input type="range" min="-50" max="50" value="0"
-         oninput="adjustContrast(this.value)" />
-</div>
-
-<div class="tool-card">
-  <h3>Undo</h3>
-  <button onclick="undoImage()">Undo</button>
-</div>
-
-<div class="tool-card">
-  <h3>Reset</h3>
-  <button onclick="resetImage()">Reset</button>
-</div>
-
-  <div class="tool-card">
-    <h3>Sharpen</h3>
-    <button onclick="sharpenImage()">Apply</button>
-  </div>
-
-  <div class="tool-card">
-    <h3>Crop</h3>
-    <button onclick="cropCenter()">Apply</button>
-  </div>
-
-  <div class="tool-card">
-    <h3>Resize (50%)</h3>
-    <button onclick="resizeImage()">Apply</button>
-  </div>
-
-  <div class="tool-card">
-    <h3>Download</h3>
-    <button onclick="downloadImage()">Download</button>
-  </div>
-</div>
-<footer class="footer">
-  © 2026 ROHAN.T PVT LTD. All rights reserved.<br />
-  Design & Developed by <strong>Rohan Gupta</strong>
-</footer>
