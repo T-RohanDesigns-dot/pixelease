@@ -46,3 +46,33 @@ function downloadImage() {
   link.href = canvas.toDataURL();
   link.click();
 }
+function cropCenter() {
+  const w = canvas.width;
+  const h = canvas.height;
+  const size = Math.min(w, h);
+
+  const imageData = ctx.getImageData(
+    (w - size) / 2,
+    (h - size) / 2,
+    size,
+    size
+  );
+
+  canvas.width = size;
+  canvas.height = size;
+  ctx.putImageData(imageData, 0, 0);
+}
+
+function resizeImage() {
+  const tempCanvas = document.createElement("canvas");
+  const tctx = tempCanvas.getContext("2d");
+
+  tempCanvas.width = canvas.width * 0.5;
+  tempCanvas.height = canvas.height * 0.5;
+
+  tctx.drawImage(canvas, 0, 0, tempCanvas.width, tempCanvas.height);
+
+  canvas.width = tempCanvas.width;
+  canvas.height = tempCanvas.height;
+  ctx.drawImage(tempCanvas, 0, 0);
+}
