@@ -105,3 +105,12 @@ canvas {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
+input[type="range"] {
+  width: 100%;
+  margin-top: 6px;
+}
+@media (max-width: 768px) {
+  .editor-layout {
+    grid-template-columns: 1fr;
+  }
+}
