@@ -91,3 +91,7 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
+[ IMAGE PREVIEW AREA ]
+- Center aligned
+- Max width fix (not full blank)
+- White card with shadow
