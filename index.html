@@ -19,16 +19,27 @@
   <script src="script.js"></script>
 </body>
 </html>
-<div class="tools-grid">
-  <div class="tool-card">
-    <h3>Brightness +</h3>
-    <button onclick="increaseBrightness()">Apply</button>
-  </div>
+<div class="tool-card">
+  <h3>Brightness</h3>
+  <input type="range" min="-50" max="50" value="0"
+         oninput="adjustBrightness(this.value)" />
+</div>
 
-  <div class="tool-card">
-    <h3>Brightness −</h3>
-    <button onclick="decreaseBrightness()">Apply</button>
-  </div>
+<div class="tool-card">
+  <h3>Contrast</h3>
+  <input type="range" min="-50" max="50" value="0"
+         oninput="adjustContrast(this.value)" />
+</div>
+
+<div class="tool-card">
+  <h3>Undo</h3>
+  <button onclick="undoImage()">Undo</button>
+</div>
+
+<div class="tool-card">
+  <h3>Reset</h3>
+  <button onclick="resetImage()">Reset</button>
+</div>
 
   <div class="tool-card">
     <h3>Sharpen</h3>
