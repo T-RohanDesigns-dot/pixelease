@@ -1,10 +1,45 @@
+let historyStack = [];
+
+function saveState() {
+  historyStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+}
+
+function undoImage() {
+  if (historyStack.length === 0) return;
+  const prev = historyStack.pop();
+  canvas.width = prev.width;
+  canvas.height = prev.height;
+  ctx.putImageData(prev, 0, 0);
+}
+
+function resetImage() {
+  if (!originalImage) return;
+  canvas.width = originalImage.width;
+  canvas.height = originalImage.height;
+  ctx.drawImage(originalImage, 0, 0);
+  historyStack = [];
+}
 const upload = document.getElementById("upload");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+let originalImage = null;
+
 upload.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
+
+  const img = new Image();
+  img.onload = () => {
+    originalImage = img;
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+    historyStack = [];
+  };
+  img.src = URL.createObjectURL(file);
+});
+
 
   const img = new Image();
   img.onload = () => {
