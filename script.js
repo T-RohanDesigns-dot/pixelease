@@ -1,58 +1,79 @@
-const upload = document.getElementById("upload");
+const fileInput = document.getElementById("upload");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const editor = document.getElementById("editor");
 
 let img = new Image();
-let originalData;
+let originalImage = null;
 
-upload.onchange = e => {
+let brightness = 0;
+let contrast = 0;
+
+fileInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
-  img.src = URL.createObjectURL(file);
-  img.onload = () => {
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img,0,0);
-    originalData = ctx.getImageData(0,0,canvas.width,canvas.height);
-    editor.classList.remove("hidden");
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      originalImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    };
+    img.src = reader.result;
   };
-};
+  reader.readAsDataURL(file);
+});
 
 function applyFilters() {
-  let b = +brightness.value;
-  let c = +contrast.value;
-  let d = new ImageData(new Uint8ClampedArray(originalData.data), canvas.width, canvas.height);
-  let factor = (259 * (c + 255)) / (255 * (259 - c));
+  if (!originalImage) return;
 
-  for (let i=0;i<d.data.length;i+=4){
-    d.data[i] = factor*(d.data[i]-128)+128+b;
-    d.data[i+1] = factor*(d.data[i+1]-128)+128+b;
-    d.data[i+2] = factor*(d.data[i+2]-128)+128+b;
+  const data = new ImageData(
+    new Uint8ClampedArray(originalImage.data),
+    originalImage.width,
+    originalImage.height
+  );
+
+  for (let i = 0; i < data.data.length; i += 4) {
+    data.data[i] = clamp(data.data[i] + brightness);     // R
+    data.data[i + 1] = clamp(data.data[i + 1] + brightness); // G
+    data.data[i + 2] = clamp(data.data[i + 2] + brightness); // B
+
+    data.data[i] = clamp((data.data[i] - 128) * contrast + 128);
+    data.data[i + 1] = clamp((data.data[i + 1] - 128) * contrast + 128);
+    data.data[i + 2] = clamp((data.data[i + 2] - 128) * contrast + 128);
   }
-  ctx.putImageData(d,0,0);
+
+  ctx.putImageData(data, 0, 0);
 }
 
-brightness.oninput = contrast.oninput = applyFilters;
+function clamp(value) {
+  return Math.max(0, Math.min(255, value));
+}
 
-document.getElementById("sharpen").onclick = () => {
-  ctx.filter = "contrast(120%) saturate(110%)";
-  ctx.drawImage(canvas,0,0);
-  ctx.filter = "none";
-};
+/* Sliders */
+document.getElementById("brightness").addEventListener("input", e => {
+  brightness = parseInt(e.target.value);
+  applyFilters();
+});
 
-document.getElementById("denoise").onclick = () => {
-  ctx.filter = "blur(0.6px)";
-  ctx.drawImage(canvas,0,0);
-  ctx.filter = "none";
-};
+document.getElementById("contrast").addEventListener("input", e => {
+  contrast = e.target.value / 50;
+  applyFilters();
+});
 
-document.getElementById("reset").onclick = () => {
-  ctx.putImageData(originalData,0,0);
-};
+/* Reset */
+document.getElementById("reset").addEventListener("click", () => {
+  if (!originalImage) return;
+  ctx.putImageData(originalImage, 0, 0);
+  brightness = 0;
+  contrast = 0;
+});
 
-document.getElementById("download").onclick = () => {
-  const a = document.createElement("a");
-  a.download = "PixelEase_Enhanced.png";
-  a.href = canvas.toDataURL();
-  a.click();
-};
+/* Download */
+document.getElementById("download").addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.download = "pixelease.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+});
