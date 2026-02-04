@@ -1,159 +1,64 @@
-let historyStack = [];
-
-function saveState() {
-  historyStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-}
-
-function undoImage() {
-  if (historyStack.length === 0) return;
-  const prev = historyStack.pop();
-  canvas.width = prev.width;
-  canvas.height = prev.height;
-  ctx.putImageData(prev, 0, 0);
-}
-
-function resetImage() {
-  if (!originalImage) return;
-  canvas.width = originalImage.width;
-  canvas.height = originalImage.height;
-  ctx.drawImage(originalImage, 0, 0);
-  historyStack = [];
-}
-const uploadInput = document.getElementById("upload");
+const upload = document.getElementById("upload");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-let originalImage = null;
+const brightnessSlider = document.getElementById("brightness");
+const contrastSlider = document.getElementById("contrast");
+const resetBtn = document.getElementById("reset");
+const downloadBtn = document.getElementById("download");
 
-uploadInput.addEventListener("change", function () {
-  const file = this.files[0];
+let img = new Image();
+let originalData = null;
+
+upload.addEventListener("change", () => {
+  const file = upload.files[0];
   if (!file) return;
 
-  const img = new Image();
-  img.onload = function () {
-    canvas.width = img.width;
-    canvas.height = img.height;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0);
-
-    originalImage = img;
-  };
-
   img.src = URL.createObjectURL(file);
-});
-
-  img.src = URL.createObjectURL(file);
-});
-
-
-  const img = new Image();
   img.onload = () => {
     canvas.width = img.width;
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
+    originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   };
-  img.src = URL.createObjectURL(file);
 });
-function increaseBrightness() {
-  adjustBrightness(10);
-}
 
-function decreaseBrightness() {
-  adjustBrightness(-10);
-}
+function applyFilters() {
+  if (!originalData) return;
 
-function adjustBrightness(value) {
-  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imgData.data;
-
-  for (let i = 0; i < data.length; i += 4) {
-    data[i] += value;     // R
-    data[i + 1] += value; // G
-    data[i + 2] += value; // B
-  }
-  ctx.putImageData(imgData, 0, 0);
-}
-
-function sharpenImage() {
-  ctx.filter = "contrast(120%) saturate(110%)";
-  ctx.drawImage(canvas, 0, 0);
-  ctx.filter = "none";
-}
-
-function downloadImage() {
-  // Temporary full-resolution canvas
-  const exportCanvas = document.createElement("canvas");
-  const exportCtx = exportCanvas.getContext("2d");
-
-  // Use actual image resolution
-  exportCanvas.width = canvas.width;
-  exportCanvas.height = canvas.height;
-
-  // Draw current edited image exactly
-  exportCtx.drawImage(canvas, 0, 0);
-
-  // Create download
-  const link = document.createElement("a");
-  link.download = "PixelEase-Edited.png";
-  link.href = exportCanvas.toDataURL("image/png", 1.0);
-  link.click();
-}
-
-}
-function cropCenter() {
-  const w = canvas.width;
-  const h = canvas.height;
-  const size = Math.min(w, h);
-
-  const imageData = ctx.getImageData(
-    (w - size) / 2,
-    (h - size) / 2,
-    size,
-    size
+  const imageData = new ImageData(
+    new Uint8ClampedArray(originalData.data),
+    originalData.width,
+    originalData.height
   );
 
-  canvas.width = size;
-  canvas.height = size;
+  const b = parseInt(brightnessSlider.value);
+  const c = parseInt(contrastSlider.value);
+  const factor = (259 * (c + 255)) / (255 * (259 - c));
+
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    imageData.data[i] = factor * (imageData.data[i] - 128) + 128 + b;
+    imageData.data[i + 1] = factor * (imageData.data[i + 1] - 128) + 128 + b;
+    imageData.data[i + 2] = factor * (imageData.data[i + 2] - 128) + 128 + b;
+  }
+
   ctx.putImageData(imageData, 0, 0);
 }
 
-function resizeImage() {
-  const tempCanvas = document.createElement("canvas");
-  const tctx = tempCanvas.getContext("2d");
+brightnessSlider.addEventListener("input", applyFilters);
+contrastSlider.addEventListener("input", applyFilters);
 
-  tempCanvas.width = canvas.width * 0.5;
-  tempCanvas.height = canvas.height * 0.5;
+resetBtn.addEventListener("click", () => {
+  if (!originalData) return;
+  ctx.putImageData(originalData, 0, 0);
+  brightnessSlider.value = 0;
+  contrastSlider.value = 0;
+});
 
-  tctx.drawImage(canvas, 0, 0, tempCanvas.width, tempCanvas.height);
-
-  canvas.width = tempCanvas.width;
-  canvas.height = tempCanvas.height;
-  ctx.drawImage(tempCanvas, 0, 0);
-}
-function adjustBrightness(value) {
-  saveState();
-  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const d = imgData.data;
-
-  for (let i = 0; i < d.length; i += 4) {
-    d[i] += Number(value);
-    d[i + 1] += Number(value);
-    d[i + 2] += Number(value);
-  }
-  ctx.putImageData(imgData, 0, 0);
-}
-
-function adjustContrast(value) {
-  saveState();
-  const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const d = imgData.data;
-  const factor = (259 * (Number(value) + 255)) / (255 * (259 - Number(value)));
-
-  for (let i = 0; i < d.length; i += 4) {
-    d[i] = factor * (d[i] - 128) + 128;
-    d[i + 1] = factor * (d[i + 1] - 128) + 128;
-    d[i + 2] = factor * (d[i + 2] - 128) + 128;
-  }
-  ctx.putImageData(imgData, 0, 0);
-}
+downloadBtn.addEventListener("click", () => {
+  if (!originalData) return;
+  const link = document.createElement("a");
+  link.download = "pixelease-image.png";
+  link.href = canvas.toDataURL();
+  link.click();
+});
