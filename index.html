@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PixelEase</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>PixelEase</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>
-  <h1>PixelEase</h1>
-  <p>Upload an image to start editing</p>
-  <input type="file" id="upload" accept="image/*">
-</header>
+<h1 class="title">PixelEase</h1>
+<p class="subtitle">Upload an image to start editing</p>
 
-<main class="container">
-  <div class="canvas-box">
-    <canvas id="canvas"></canvas>
-  </div>
+<input type="file" id="upload" accept="image/*">
 
-  <div class="tools">
-    <div class="control">
-      <label>Brightness</label>
-      <input type="range" id="brightness" min="-100" max="100" value="0">
-    </div>
+<div class="editor">
+  <canvas id="canvas"></canvas>
 
-    <div class="control">
-      <label>Contrast</label>
-      <input type="range" id="contrast" min="-100" max="100" value="0">
-    </div>
+  <div class="controls">
+    <label>Brightness</label>
+    <input type="range" id="brightness" min="-100" max="100" value="0">
+
+    <label>Contrast</label>
+    <input type="range" id="contrast" min="-100" max="100" value="0">
 
     <button id="sharpen">Sharpen</button>
+
+    <select id="upscale">
+      <option value="1">Original</option>
+      <option value="2">HD (2×)</option>
+      <option value="4">UHD (4×)</option>
+    </select>
+
     <button id="reset">Reset</button>
     <button id="download">Download</button>
   </div>
-</main>
+</div>
 
 <footer>
 © 2026 ROHAN.T PVT LTD. All rights reserved.<br>
