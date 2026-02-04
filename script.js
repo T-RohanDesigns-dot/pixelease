@@ -38,27 +38,27 @@ function applyFilters() {
 
   for (let i = 0; i < data.data.length; i += 4) {
     data.data[i] = f * (data.data[i] - 128) + 128 + b;
-    data.data[i+1] = f * (data.data[i+1] - 128) + 128 + b;
-    data.data[i+2] = f * (data.data[i+2] - 128) + 128 + b;
+    data.data[i + 1] = f * (data.data[i + 1] - 128) + 128 + b;
+    data.data[i + 2] = f * (data.data[i + 2] - 128) + 128 + b;
   }
 
   ctx.putImageData(data, 0, 0);
 }
 
-brightness.oninput = applyFilters;
-contrast.oninput = applyFilters;
+brightness.addEventListener("input", applyFilters);
+contrast.addEventListener("input", applyFilters);
 
-reset.onclick = () => {
+reset.addEventListener("click", () => {
   if (!original) return;
   ctx.putImageData(original, 0, 0);
   brightness.value = 0;
   contrast.value = 0;
-};
+});
 
-download.onclick = () => {
+download.addEventListener("click", () => {
   if (!original) return;
   const a = document.createElement("a");
   a.download = "pixelease.png";
   a.href = canvas.toDataURL("image/png");
   a.click();
-};
+});
