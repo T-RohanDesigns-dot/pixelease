@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PixelEase</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>PixelEase – Enhance Images Instantly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1 class="title">PixelEase</h1>
-<p class="subtitle">Upload an image to start editing</p>
+<header class="hero">
+  <h1>PixelEase</h1>
+  <p>Enhance images instantly. No signup. No upload. 100% browser-based.</p>
+  <label class="upload-btn">
+    Upload Image
+    <input type="file" id="upload" accept="image/*" hidden />
+  </label>
+</header>
 
-<input type="file" id="upload" accept="image/*">
+<main class="editor hidden" id="editor">
+  <div class="canvas-wrap">
+    <canvas id="canvas"></canvas>
+  </div>
 
-<div class="editor">
-  <canvas id="canvas"></canvas>
+  <div class="tools">
+    <div class="tool">
+      <label>Brightness <span id="bVal">0</span></label>
+      <input type="range" id="brightness" min="-100" max="100" value="0">
+    </div>
 
-  <div class="controls">
-    <label>Brightness</label>
-    <input type="range" id="brightness" min="-100" max="100" value="0">
+    <div class="tool">
+      <label>Contrast <span id="cVal">0</span></label>
+      <input type="range" id="contrast" min="-100" max="100" value="0">
+    </div>
 
-    <label>Contrast</label>
-    <input type="range" id="contrast" min="-100" max="100" value="0">
-
-    <button id="sharpen">Sharpen</button>
+    <button id="sharpen">Sharpen (Real Kernel)</button>
+    <button id="denoise">Noise Reduction</button>
 
     <select id="upscale">
       <option value="1">Original</option>
@@ -33,11 +45,18 @@
     <button id="reset">Reset</button>
     <button id="download">Download</button>
   </div>
-</div>
+</main>
+
+<section class="features">
+  <div>⚡ One-click enhancement</div>
+  <div>🔒 No server upload</div>
+  <div>📷 HD & 4K Upscale</div>
+  <div>🎯 Noise reduction</div>
+</section>
 
 <footer>
-© 2026 ROHAN.T PVT LTD. All rights reserved.<br>
-Design & Developed by Rohan Gupta
+  © 2026 ROHAN.T PVT LTD. All rights reserved.<br />
+  Design & Developed by Rohan Gupta
 </footer>
 
 <script src="script.js"></script>
