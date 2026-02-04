@@ -1,85 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 <title>PixelEase</title>
-
-<style>
-:root {
-  --green:#2f7d6b;
-  --bg:#f4f7f6;
-}
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:var(--bg);
-}
-header {
-  text-align:center;
-  padding:20px;
-}
-h1 {
-  color:var(--green);
-  margin-bottom:5px;
-}
-.container {
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  gap:20px;
-  padding:20px;
-}
-.canvas-box, .tools {
-  background:#fff;
-  border-radius:12px;
-  padding:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-.canvas-box {
-  flex:2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.tools {
-  flex:1;
-}
-canvas {
-  max-width:100%;
-  border-radius:8px;
-}
-.control {
-  margin-bottom:15px;
-}
-label {
-  font-size:14px;
-  font-weight:bold;
-}
-input[type=range] {
-  width:100%;
-}
-button {
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:6px;
-  background:var(--green);
-  color:#fff;
-  cursor:pointer;
-  margin-top:5px;
-}
-button:hover {
-  opacity:.9;
-}
-footer {
-  background:var(--green);
-  color:#fff;
-  text-align:center;
-  padding:15px;
-  margin-top:20px;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -90,7 +15,7 @@ footer {
   <input type="file" id="upload" accept="image/*">
 </header>
 
-<div class="container">
+<main class="container">
   <div class="canvas-box">
     <canvas id="canvas"></canvas>
   </div>
@@ -110,75 +35,13 @@ footer {
     <button id="reset">Reset</button>
     <button id="download">Download</button>
   </div>
-</div>
+</main>
 
 <footer>
 © 2026 ROHAN.T PVT LTD. All rights reserved.<br>
 Design & Developed by Rohan Gupta
 </footer>
 
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-let img = new Image();
-let originalData = null;
-
-upload.onchange = e => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img,0,0);
-      originalData = ctx.getImageData(0,0,canvas.width,canvas.height);
-    }
-    img.src = reader.result;
-  }
-  reader.readAsDataURL(file);
-};
-
-function applyFilters() {
-  if(!originalData) return;
-  let data = new ImageData(
-    new Uint8ClampedArray(originalData.data),
-    originalData.width,
-    originalData.height
-  );
-  let b = brightness.value;
-  let c = contrast.value;
-  let factor = (259*(c+255))/(255*(259-c));
-
-  for(let i=0;i<data.data.length;i+=4){
-    data.data[i] = factor*(data.data[i]-128)+128+b;
-    data.data[i+1] = factor*(data.data[i+1]-128)+128+b;
-    data.data[i+2] = factor*(data.data[i+2]-128)+128+b;
-  }
-  ctx.putImageData(data,0,0);
-}
-
-brightness.oninput = contrast.oninput = applyFilters;
-
-sharpen.onclick = () => {
-  ctx.filter="contrast(110%)";
-  ctx.drawImage(canvas,0,0);
-  ctx.filter="none";
-}
-
-reset.onclick = () => {
-  if(originalData) ctx.putImageData(originalData,0,0);
-  brightness.value = 0;
-  contrast.value = 0;
-}
-
-download.onclick = () => {
-  const a = document.createElement("a");
-  a.download = "pixelease.png";
-  a.href = canvas.toDataURL();
-  a.click();
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
