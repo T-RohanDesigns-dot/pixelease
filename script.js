@@ -2,13 +2,13 @@ const upload = document.getElementById("upload");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const brightnessSlider = document.getElementById("brightness");
-const contrastSlider = document.getElementById("contrast");
-const resetBtn = document.getElementById("reset");
-const downloadBtn = document.getElementById("download");
+const brightness = document.getElementById("brightness");
+const contrast = document.getElementById("contrast");
+const reset = document.getElementById("reset");
+const download = document.getElementById("download");
 
 let img = new Image();
-let originalData = null;
+let original = null;
 
 upload.addEventListener("change", () => {
   const file = upload.files[0];
@@ -19,46 +19,46 @@ upload.addEventListener("change", () => {
     canvas.width = img.width;
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
-    originalData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    original = ctx.getImageData(0, 0, canvas.width, canvas.height);
   };
 });
 
 function applyFilters() {
-  if (!originalData) return;
+  if (!original) return;
 
-  const imageData = new ImageData(
-    new Uint8ClampedArray(originalData.data),
-    originalData.width,
-    originalData.height
+  const data = new ImageData(
+    new Uint8ClampedArray(original.data),
+    original.width,
+    original.height
   );
 
-  const b = parseInt(brightnessSlider.value);
-  const c = parseInt(contrastSlider.value);
-  const factor = (259 * (c + 255)) / (255 * (259 - c));
+  const b = +brightness.value;
+  const c = +contrast.value;
+  const f = (259 * (c + 255)) / (255 * (259 - c));
 
-  for (let i = 0; i < imageData.data.length; i += 4) {
-    imageData.data[i] = factor * (imageData.data[i] - 128) + 128 + b;
-    imageData.data[i + 1] = factor * (imageData.data[i + 1] - 128) + 128 + b;
-    imageData.data[i + 2] = factor * (imageData.data[i + 2] - 128) + 128 + b;
+  for (let i = 0; i < data.data.length; i += 4) {
+    data.data[i] = f * (data.data[i] - 128) + 128 + b;
+    data.data[i+1] = f * (data.data[i+1] - 128) + 128 + b;
+    data.data[i+2] = f * (data.data[i+2] - 128) + 128 + b;
   }
 
-  ctx.putImageData(imageData, 0, 0);
+  ctx.putImageData(data, 0, 0);
 }
 
-brightnessSlider.addEventListener("input", applyFilters);
-contrastSlider.addEventListener("input", applyFilters);
+brightness.oninput = applyFilters;
+contrast.oninput = applyFilters;
 
-resetBtn.addEventListener("click", () => {
-  if (!originalData) return;
-  ctx.putImageData(originalData, 0, 0);
-  brightnessSlider.value = 0;
-  contrastSlider.value = 0;
-});
+reset.onclick = () => {
+  if (!original) return;
+  ctx.putImageData(original, 0, 0);
+  brightness.value = 0;
+  contrast.value = 0;
+};
 
-downloadBtn.addEventListener("click", () => {
-  if (!originalData) return;
-  const link = document.createElement("a");
-  link.download = "pixelease-image.png";
-  link.href = canvas.toDataURL();
-  link.click();
-});
+download.onclick = () => {
+  if (!original) return;
+  const a = document.createElement("a");
+  a.download = "pixelease.png";
+  a.href = canvas.toDataURL("image/png");
+  a.click();
+};
