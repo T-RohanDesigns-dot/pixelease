@@ -77,3 +77,40 @@ document.getElementById("download").addEventListener("click", () => {
   link.href = canvas.toDataURL("image/png");
   link.click();
 });
+function sharpen() {
+  const w = canvas.width;
+  const h = canvas.height;
+  const src = ctx.getImageData(0, 0, w, h);
+  const dst = ctx.createImageData(w, h);
+
+  const kernel = [
+     0, -1,  0,
+    -1,  5, -1,
+     0, -1,  0
+  ];
+
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      let r = 0, g = 0, b = 0;
+      let i = 0;
+
+      for (let ky = -1; ky <= 1; ky++) {
+        for (let kx = -1; kx <= 1; kx++) {
+          const px = ((y + ky) * w + (x + kx)) * 4;
+          r += src.data[px] * kernel[i];
+          g += src.data[px + 1] * kernel[i];
+          b += src.data[px + 2] * kernel[i];
+          i++;
+        }
+      }
+
+      const idx = (y * w + x) * 4;
+      dst.data[idx] = clamp(r);
+      dst.data[idx + 1] = clamp(g);
+      dst.data[idx + 2] = clamp(b);
+      dst.data[idx + 3] = 255;
+    }
+  }
+
+  ctx.putImageData(dst, 0, 0);
+}
