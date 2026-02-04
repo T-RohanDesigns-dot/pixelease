@@ -7,58 +7,26 @@
 </head>
 <body>
 
-  <h1>PixelEase</h1>
-  <p>Upload an image to start editing</p>
+<h1>PixelEase</h1>
+<p>Upload an image to start editing</p>
 
-  <input type="file" id="upload" accept="image/*" />
-
-  <!-- MAIN EDITOR -->
-  <div class="editor-layout">
-
-    <!-- IMAGE AREA -->
-    <div class="canvas-wrap">
-      <canvas id="canvas"></canvas>
 <input type="file" id="upload" accept="image/*">
+
+<div class="editor">
+  <canvas id="canvas"></canvas>
+
+  <div class="controls">
+    <label>Brightness</label>
+    <input type="range" id="brightness" min="-100" max="100" value="0">
+
+    <label>Contrast</label>
+    <input type="range" id="contrast" min="-100" max="100" value="0">
+
+    <button id="reset">Reset</button>
+    <button id="download">Download</button>
   </div>
+</div>
 
-    <!-- TOOLS AREA -->
-    <div class="tools-panel">
-      <div class="tools-grid">
-
-        <div class="tool-card">
-          <h3>Brightness</h3>
-          <input type="range" min="-40" max="40" value="0"
-            oninput="adjustBrightness(this.value)" />
-        </div>
-
-        <div class="tool-card">
-          <h3>Contrast</h3>
-          <input type="range" min="-40" max="40" value="0"
-            oninput="adjustContrast(this.value)" />
-        </div>
-
-        <div class="tool-card">
-          <h3>Sharpen</h3>
-          <button onclick="sharpenImage()">Apply</button>
-        </div>
-
-        <div class="tool-card">
-          <h3>Undo</h3>
-          <button onclick="undoImage()">Undo</button>
-        </div>
-
-        <div class="tool-card">
-          <h3>Reset</h3>
-          <button onclick="resetImage()">Reset</button>
-        </div>
-
-        <div class="tool-card">
-          <h3>Download</h3>
-          <button onclick="downloadImage()">Download</button>
-        </div>
-
-      </div>
-    </div>
 
   </div>
 
