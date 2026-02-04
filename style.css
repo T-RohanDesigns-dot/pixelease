@@ -1,69 +1,89 @@
+* { box-sizing: border-box; font-family: Inter, Arial, sans-serif; }
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f7f6;
+  margin: 0;
+  background: #f4f7f6;
+  color: #133;
+}
+
+.hero {
   text-align: center;
+  padding: 40px 20px;
 }
 
-.title {
-  color: #2f7d6b;
-  margin-top: 20px;
+.hero h1 {
+  font-size: 42px;
+  color: #2e7d6f;
 }
 
-.subtitle {
-  color: #555;
+.upload-btn {
+  background: #2e7d6f;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .editor {
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-top: 30px;
+  padding: 30px;
+}
+
+.hidden { display: none; }
+
+.canvas-wrap {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.1);
 }
 
 canvas {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  max-width: 420px;
+  max-width: 400px;
 }
 
-.controls {
+.tools {
   background: #fff;
   padding: 20px;
-  border-radius: 12px;
   width: 260px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  text-align: left;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.1);
 }
 
-.controls label {
+.tool label {
+  display: flex;
+  justify-content: space-between;
   font-size: 14px;
-  font-weight: bold;
 }
 
-.controls input,
-.controls select,
-.controls button {
+input[type=range] {
   width: 100%;
-  margin: 8px 0 16px;
 }
 
-button {
-  background: #2f7d6b;
-  color: white;
-  border: none;
+button, select {
+  width: 100%;
+  margin-top: 10px;
   padding: 10px;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
+  background: #2e7d6f;
+  color: #fff;
 }
 
-button:hover {
-  background: #256355;
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  gap: 15px;
+  padding: 30px;
+  text-align: center;
 }
 
 footer {
-  margin-top: 40px;
-  background: #2f7d6b;
-  color: white;
+  background: #2e7d6f;
+  color: #fff;
+  text-align: center;
   padding: 15px;
 }
