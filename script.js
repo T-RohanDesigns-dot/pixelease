@@ -76,10 +76,24 @@ function sharpenImage() {
 }
 
 function downloadImage() {
+  // Temporary full-resolution canvas
+  const exportCanvas = document.createElement("canvas");
+  const exportCtx = exportCanvas.getContext("2d");
+
+  // Use actual image resolution
+  exportCanvas.width = canvas.width;
+  exportCanvas.height = canvas.height;
+
+  // Draw current edited image exactly
+  exportCtx.drawImage(canvas, 0, 0);
+
+  // Create download
   const link = document.createElement("a");
-  link.download = "pixelease.png";
-  link.href = canvas.toDataURL();
+  link.download = "PixelEase-Edited.png";
+  link.href = exportCanvas.toDataURL("image/png", 1.0);
   link.click();
+}
+
 }
 function cropCenter() {
   const w = canvas.width;
