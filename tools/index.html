@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PixelEase Tools</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="dark">
+
+<header class="nav">
+<h2>PixelEase</h2>
+
+<div>
+<a href="../index.html" class="btn">Home</a>
+<button id="themeToggle" class="btn">🌙</button>
+</div>
+</header>
+
+<div class="tool-container">
+
+<input type="file" id="upload">
+
+<canvas id="canvas"></canvas>
+
+<div class="controls">
+
+<label>Brightness</label>
+<input type="range" id="bright" min="-100" max="100">
+
+<label>Contrast</label>
+<input type="range" id="contrast" min="-100" max="100">
+
+<button onclick="applyFilter()">Apply</button>
+<button onclick="download()">Download</button>
+
+</div>
+
+</div>
+
+<script src="../script.js"></script>
+
+</body>
+</html>
 
