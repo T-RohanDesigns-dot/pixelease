@@ -1,56 +1,93 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: #f4f7f6;
+body{
+margin:0;
+font-family:sans-serif;
+background:#0e1117;
+color:white;
 }
 
-.editor {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
+.nav{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:#161b22;
 }
 
-canvas {
-  background: transparent;
-  max-width: 500px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+.btn{
+color:white;
+text-decoration:none;
+background:#2ea043;
+padding:8px 16px;
+border-radius:8px;
 }
 
-.controls {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 220px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+.hero{
+text-align:center;
+padding:80px 20px;
 }
 
-.controls label {
-  font-size: 14px;
-  display: block;
-  margin-top: 10px;
+.hero span{
+color:#3fb950;
 }
 
-.controls button,
-.controls select {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  background: #2f7d6b;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.upload-btn{
+display:inline-block;
+margin-top:20px;
+padding:12px 25px;
+background:#238636;
+color:white;
+border-radius:10px;
+text-decoration:none;
 }
 
-.controls button:hover {
-  background: #256556;
+.features{
+display:flex;
+justify-content:center;
+gap:40px;
+padding:40px;
+flex-wrap:wrap;
 }
 
-footer {
-  margin-top: 40px;
-  padding: 15px;
-  background: #2f7d6b;
-  color: white;
+.editor{
+text-align:center;
+padding:30px;
+}
+
+.editor-box{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+canvas{
+background:#111;
+border-radius:12px;
+max-width:400px;
+}
+
+.controls{
+background:#161b22;
+padding:20px;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+gap:10px;
+width:200px;
+}
+
+button{
+padding:10px;
+background:#238636;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:20px;
+margin-top:40px;
+background:#238636;
 }
