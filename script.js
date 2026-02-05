@@ -58,3 +58,19 @@ link.download = "pixelease.png";
 link.href = canvas.toDataURL();
 link.click();
 }
+const toggle = document.getElementById("themeToggle");
+
+toggle.onclick = () => {
+
+  if(document.body.classList.contains("dark")){
+    document.body.classList.remove("dark");
+    document.body.classList.add("light");
+    toggle.textContent = "🌙";
+  }
+  else{
+    document.body.classList.add("dark");
+    document.body.classList.remove("light");
+    toggle.textContent = "☀️";
+  }
+
+};
