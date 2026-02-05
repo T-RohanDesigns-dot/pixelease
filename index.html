@@ -1,46 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PixelEase</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PixelEase</title>
+<link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<h1>PixelEase</h1>
-<p>Enhance images instantly. 100% browser-based.</p>
+<body class="dark">
 
-<input type="file" id="upload" accept="image/*">
+<header class="nav">
+<h2>PixelEase</h2>
+<a href="tools.html" class="btn">Tools</a>
+</header>
 
-<div class="editor">
-  <canvas id="canvas"></canvas>
+<section class="hero">
+<h1>Enhance Your Images <span>Beautifully.</span></h1>
+<p>No login • No upload • Browser based • 1GB support</p>
 
-  <div class="controls">
-    <label>Brightness</label>
-    <input type="range" id="brightness" min="-100" max="100" value="0">
+<a href="tools.html" class="upload-btn">Upload Image</a>
+</section>
 
-    <label>Contrast</label>
-    <input type="range" id="contrast" min="-100" max="100" value="0">
-
-    <button id="sharpen">Sharpen (Kernel)</button>
-    <button id="noise">Noise Reduction</button>
-
-    <select id="upscale">
-      <option value="1">Original</option>
-      <option value="2">HD (2×)</option>
-      <option value="4">UHD (4×)</option>
-    </select>
-
-    <button id="reset">Reset</button>
-    <button id="download">Download</button>
-  </div>
-</div>
+<section class="features">
+<div>⚡ One Click Enhancement</div>
+<div>🔒 No Server Upload</div>
+<div>📷 HD & 4K Upscale</div>
+<div>🎯 Noise Reduction</div>
+</section>
 
 <footer>
-© 2026 ROHAN.T PVT LTD. All rights reserved.<br>
+© 2026 ROHAN.T PVT LTD. All rights reserved.<br/>
 Design & Developed by Rohan Gupta
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
