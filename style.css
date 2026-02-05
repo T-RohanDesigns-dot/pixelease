@@ -91,3 +91,34 @@ padding:20px;
 margin-top:40px;
 background:#238636;
 }
+body {
+  transition: 0.3s;
+}
+
+/* DARK MODE */
+body.dark {
+  background: #0b1220;
+  color: white;
+}
+
+/* LIGHT MODE */
+body.light {
+  background: #f3f6f9;
+  color: #111;
+}
+
+.tools-btn {
+  background: #2ea44f;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+#themeToggle {
+  margin-left: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
