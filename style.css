@@ -1,89 +1,56 @@
-* { box-sizing: border-box; font-family: Inter, Arial, sans-serif; }
-
 body {
-  margin: 0;
-  background: #f4f7f6;
-  color: #133;
-}
-
-.hero {
+  font-family: Arial, sans-serif;
   text-align: center;
-  padding: 40px 20px;
-}
-
-.hero h1 {
-  font-size: 42px;
-  color: #2e7d6f;
-}
-
-.upload-btn {
-  background: #2e7d6f;
-  color: #fff;
-  padding: 12px 22px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: #f4f7f6;
 }
 
 .editor {
   display: flex;
   justify-content: center;
   gap: 30px;
-  padding: 30px;
-}
-
-.hidden { display: none; }
-
-.canvas-wrap {
-  background: #fff;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.1);
+  margin-top: 20px;
 }
 
 canvas {
-  max-width: 400px;
+  background: transparent;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-.tools {
+.controls {
   background: #fff;
   padding: 20px;
-  width: 260px;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.1);
+  border-radius: 12px;
+  width: 220px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-.tool label {
-  display: flex;
-  justify-content: space-between;
+.controls label {
   font-size: 14px;
+  display: block;
+  margin-top: 10px;
 }
 
-input[type=range] {
-  width: 100%;
-}
-
-button, select {
+.controls button,
+.controls select {
   width: 100%;
   margin-top: 10px;
   padding: 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: #2e7d6f;
+  background: #2f7d6b;
   color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
-  gap: 15px;
-  padding: 30px;
-  text-align: center;
+.controls button:hover {
+  background: #256556;
 }
 
 footer {
-  background: #2e7d6f;
-  color: #fff;
-  text-align: center;
+  margin-top: 40px;
   padding: 15px;
+  background: #2f7d6b;
+  color: white;
 }
